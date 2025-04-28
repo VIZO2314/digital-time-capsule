@@ -1,0 +1,180 @@
+/* 1. Variables & Reset */
+:root {
+  /* Colors */
+  --clr-bg:         #FFF4E6;  /* peach milk */
+  --clr-primary:    #FFB703;  /* sunset gold */
+  --clr-secondary:  #FB8500;  /* burnt orange */
+  --clr-accent:     #8338EC;  /* dusty purple */
+  --clr-text:       #343A40;  /* charcoal */
+  --clr-card-bg:    #FFFFFF;
+  
+  /* Spacing */
+  --sp-sm: 0.5rem;
+  --sp:    1rem;
+  --sp-lg: 1.5rem;
+
+  /* Radius */
+  --r: 0.5rem;
+
+  /* Typography */
+  --ff-base:    'Open Sans', sans-serif;
+  --ff-heading: 'Lora', serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--ff-base);
+  line-height: 1.6;
+}
+
+/* 2. Navbar */
+.navbar {
+  background: var(--clr-primary);
+  padding: var(--sp) var(--sp-lg);
+}
+.navbar-brand,
+.nav-link {
+  color: var(--clr-text-light) !important;
+  font-weight: 600;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--clr-bg) !important;
+}
+
+/* 2b. Header */
+.masthead {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 0;
+  margin-bottom: var(--sp-lg);
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.site-heading {
+  position: relative;
+  text-align: center;
+  color: var(--clr-text-light);
+}
+.site-heading h1 {
+  font-family: var(--ff-heading);
+  font-size: 3rem;
+  margin-bottom: var(--sp-sm);
+}
+.site-heading .subheading {
+  font-family: var(--ff-base);
+  font-size: 1.25rem;
+}
+
+/* 3. Capsule form */
+#capsuleForm {
+  background: var(--clr-card-bg);
+  padding: var(--sp-lg);
+  border-radius: var(--r);
+  box-shadow: 0 2px 8px var(--clr-shadow);
+  margin-bottom: var(--sp-lg);
+}
+#capsuleForm .form-control,
+#capsuleForm textarea {
+  border-radius: var(--r);
+  margin-bottom: var(--sp);
+  padding: var(--sp);
+  border: 1px solid var(--clr-secondary);
+  transition: border-color .2s;
+}
+#capsuleForm .form-control:focus,
+#capsuleForm textarea:focus {
+  border-color: var(--clr-primary);
+  outline: none;
+}
+#capsuleForm button {
+  display: inline-block;
+  background: var(--clr-primary);
+  color: var(--clr-text-light);
+  padding: var(--sp-sm) var(--sp-lg);
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+}
+#capsuleForm button:hover {
+  background: #e05550;
+  transform: translateY(-2px);
+}
+
+/* 4. Cards */
+.card {
+  background: var(--clr-card-bg);
+  border: none;
+  border-radius: var(--r);
+  box-shadow: 0 1px 6px var(--clr-shadow);
+  margin-bottom: var(--sp-lg);
+  overflow: hidden;
+  transition: transform .2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+}
+.card-header {
+  background: var(--clr-primary);
+  color: var(--clr-text-light);
+  padding: var(--sp);
+  font-family: var(--ff-heading);
+  font-size: 1.25rem;
+}
+.card-body {
+  padding: var(--sp);
+}
+.card-body p {
+  margin-bottom: var(--sp);
+}
+.card-footer {
+  background: transparent;
+  border-top: 1px solid var(--clr-bg);
+  padding: var(--sp);
+}
+.card-footer .btn {
+  margin-left: var(--sp-sm);
+}
+
+/* 5. Responsive grid for capsules */
+#capsules {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-lg);
+}
+@media (min-width: 768px) {
+  #capsules {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 6. Footer */
+footer {
+  background: var(--clr-primary);
+  color: var(--clr-text-light);
+  text-align: center;
+  padding: var(--sp-lg) 0;
+}
+footer a {
+  color: var(--clr-text-light);
+  text-decoration: underline;
+}
+
+footer .list-inline {
+  display: none;
+}
