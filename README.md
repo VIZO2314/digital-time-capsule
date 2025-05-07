@@ -70,9 +70,7 @@ node index.js
 ## ☁️ Catatan Deploy
 
 - Telah diuji untuk deployment di:
-  - Render (via Web Service)
-  - Firebase Hosting (frontend only)
-- Disarankan memisahkan frontend dan backend jika menggunakan hosting seperti Firebase.
+  - [Render](https://digitaltimecapsule-caon.onrender.com)
 
 ---
 
