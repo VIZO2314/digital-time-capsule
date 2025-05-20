@@ -22,54 +22,6 @@ function showNotification(msg, type='info') {
   setTimeout(() => a.remove(), 4000);
 }
 
-// Form edit (pesan + tanggal)
-function showEditForm(capsule, bodyEl, footerEl) {
-  // kosongkan
-  bodyEl.innerHTML   = '';
-  footerEl.innerHTML = '';
-
-  bodyEl.innerHTML = `
-    <div class="mb-2">
-      <label class="form-label">Pesan</label>
-      <textarea id="edit-msg-${capsule.id}" class="form-control" rows="3">${capsule.message}</textarea>
-    </div>
-    <div class="mb-2">
-      <label class="form-label">Send Date</label>
-      <input id="edit-date-${capsule.id}" type="date" class="form-control" value="${capsule.sendDate}">
-    </div>
-  `;
-
-  const btnSave = document.createElement('button');
-  btnSave.className = 'btn btn-sm btn-success me-2';
-  btnSave.textContent = 'Simpan';
-  btnSave.addEventListener('click', async () => {
-    const newMsg  = document.getElementById(`edit-msg-${capsule.id}`).value;
-    const newDate = document.getElementById(`edit-date-${capsule.id}`).value;
-    try {
-      const res = await fetch(`${apiBase}/${capsule.id}`, {
-        method: 'PATCH',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ message: newMsg, sendDate: newDate })
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Gagal menyimpan');
-      }
-      showNotification('Berhasil diperbarui!', 'success');
-      fetchCapsules();
-    } catch (e) {
-      showNotification(e.message, 'danger');
-    }
-  });
-
-  const btnCancel = document.createElement('button');
-  btnCancel.className = 'btn btn-sm btn-secondary';
-  btnCancel.textContent = 'Batal';
-  btnCancel.addEventListener('click', fetchCapsules);
-
-  footerEl.append(btnSave, btnCancel);
-}
-
 // Render
 function renderCapsules(items) {
   listDiv.innerHTML = '';               // clear
@@ -120,22 +72,18 @@ function renderCapsules(items) {
     const footer = document.createElement('div');
     footer.className = 'card-footer text-end';
 
-    // Edit (hanya sebelum tanggal & sebelum sent)
-    if (c.sendDate > today && !c.sent) {
-      const btnEdit = document.createElement('button');
-      btnEdit.className = 'btn btn-sm btn-outline-secondary me-2';
-      btnEdit.textContent = 'Edit';
-      btnEdit.addEventListener('click', () => showEditForm(c, body, footer));
-      footer.appendChild(btnEdit);
-    }
-
     // Delete
     const btnDel = document.createElement('button');
     btnDel.className = 'btn btn-sm btn-outline-danger';
     btnDel.textContent = 'Delete';
     btnDel.addEventListener('click', async () => {
-      await fetch(`${apiBase}/${c.id}`, { method: 'DELETE' });
-      fetchCapsules();
+      try {
+        await fetch(`${apiBase}/${c.id}`, { method: 'DELETE' });
+        showNotification('Capsule berhasil dihapus', 'success');
+        fetchCapsules();
+      } catch (error) {
+        showNotification('Gagal menghapus capsule', 'danger');
+      }
     });
     footer.appendChild(btnDel);
 
@@ -143,12 +91,17 @@ function renderCapsules(items) {
     if (c.sendDate <= today && !c.opened) {
       const btnOpen = body.querySelector(`#open-${c.id}`);
       btnOpen.addEventListener('click', async () => {
-        await fetch(`${apiBase}/${c.id}`, {
-          method:'PATCH',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({ opened:true })
-        });
-        fetchCapsules();
+        try {
+          await fetch(`${apiBase}/${c.id}`, {
+            method:'PATCH',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({ opened:true })
+          });
+          showNotification('Kapsul berhasil dibuka!', 'success');
+          fetchCapsules();
+        } catch (error) {
+          showNotification('Gagal membuka kapsul', 'danger');
+        }
       });
     }
 
