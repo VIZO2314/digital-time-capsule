@@ -61,10 +61,8 @@ module.exports = function startCron({
             to: capsule.email,
             subject: `Kapsul Waktu Terbuka: ${capsule.title}`,
             html: `
-              <p>Halo ${capsule.author || 'Penerima'},</p>
               <p>Ini adalah pesan dari masa lalu yang Anda jadwalkan untuk hari ini:</p>
               <hr>
-              <h3>${capsule.title}</h3>
               <p><strong>Dari:</strong> ${capsule.author}</p>
               <p><strong>Pesan:</strong></p>
               <p style="white-space: pre-wrap; padding: 10px; border-left: 3px solid #eee; background-color: #f9f9f9;">${capsule.message}</p>
