@@ -13,7 +13,6 @@ _Dokumentasi dibuat pada: 01 Mei 2025_
 
 - Tambah kapsul waktu (judul, penulis, isi pesan, tanggal kirim, email penerima)
 - Buka kapsul ketika tanggal kirim telah tiba
-- Edit pesan & tanggal kirim sebelum dikirim
 - Kirim email otomatis via cronjob menggunakan **Nodemailer**
 - Penyimpanan data menggunakan **Firestore**
 - UI responsif menggunakan Bootstrap
